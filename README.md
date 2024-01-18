@@ -26,3 +26,4 @@ Any planned future optimizations
 
 ### Knowledge gained from this project
 Learned how to use mongoose to be able to connect to MongoDB and apply schemas.
+Found out there are definitely people connecting to my existing cluster as I forgot to make an old project private, which was using my dbConnection string directly in the server.js! Oops! Learned how to terminate a cluster.
