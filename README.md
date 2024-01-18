@@ -25,4 +25,4 @@ To get a copy of this project, you can fork the repo then clone it as your own.
 Any planned future optimizations
 
 ### Knowledge gained from this project
-Skills/knowledge gained from the project
+Learned how to use mongoose to be able to connect to MongoDB and apply schemas.
