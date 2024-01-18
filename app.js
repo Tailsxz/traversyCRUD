@@ -5,6 +5,7 @@ const connectDB = require('./config/db.js');
 // Loading the config for our environment variables
 dotenv.config({ path: './config/config.env' });
 
+//Calling the connectDB() we exported from db.js to connect to the database.
 connectDB();
 
 //Initializing the express app server instance
