@@ -27,3 +27,5 @@ Any planned future optimizations
 ### Knowledge gained from this project
 Learned how to use mongoose to be able to connect to MongoDB and apply schemas.
 Found out there are definitely people connecting to my existing cluster as I forgot to make an old project private, which was using my dbConnection string directly in the server.js! Oops! Learned how to terminate a cluster.
+Learned how to setup the handlebars engine and define specific configurations for the engine such as the defaultLayout which will be used for the majority of our routes from which we can then render specific hbs files as the body for the individual layouts.
+Learned how to use the express router/ and how to encapsulate our routes as a seperate component and use them within the main app.
