@@ -1,3 +1,4 @@
+const path = require('path');
 const express =require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
@@ -25,13 +26,14 @@ if (process.env.NODE_ENV === 'development') {
 //Here we see that when we call this function a function with the description [Function: bound renderView] is produced.
 // console.log(expressHandlebars());
 //It essentially is the callback that will be executed to process any files we are rendering with the .hbs extension
-
 app.engine('.hbs', expressHandlebars({ defaultLayout: 'main' ,extname: '.hbs' }));
 //With the set method of the app, we can specify settings for our server. We can set really any key value pair we want, but there are certain names when set, like 'view engine' below, which can be used to configure specific behaviors of our express server.
-
 //Here we set the view engine setting, to default to .hbs, so that when we call res.render() without specifying an extension, it is automagically assumed to be one ending in .hbs
 app.set('view engine', '.hbs');
 //for custom settings, one that is not on the predefined list of configurable settings, we can access the value by passing in the name as an argument to a app.get() call.
+
+// Setting up the static express middleware which will define routes for static files we want to serve automatically. We will be serving from the public directory existing in the current directory. We can use the path core module to form the full path by referencing __dirname(current directory) and joining it with public
+app.use(express.static(path.join(__dirname, 'public')))
 
 //Connecting to all of our routers
 app.use('/', require('./routes/index'));
