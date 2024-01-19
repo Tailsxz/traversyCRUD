@@ -33,4 +33,4 @@ Learned how to bring in the materialize framework, a framework that is built upo
 Learned how author origins are applied, the order the browser parses the stylesheet is the order they are in the cascade.
 Got experience using materialize to be able to create styled components very fast. I think I'm going to love tailwind in the future! It provides the power of these predefined classes, without limiting us to the opinions of these component libraries.
 Learned how to set up a project on google cloud console, specifically how to enable the Google+ API(Deprecated, Google Sign In is now the preferred API) for authentication.
-Learned how to define a schema using mongoose
+Learned how to define a schema using mongoose.

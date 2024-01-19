@@ -10,5 +10,20 @@ module.exports = function (passport) {
   },
   async (accessToken, refreshToken, profile, done) => {
     console.log(profile);
+    
   }));
+  //we are exporting the functions that are serializing the user data storing it into the session, the nextTick queue, is essentially the promisejobs queue which we are identifying by the fact that it is ran before allowing the event loop to continue and that it is executed to completion.
+  passport.serializeUser((user, done) => process.nextTick(() => {
+      return done(null, {
+        id: user.id,
+        username: user.username,
+        picture: user.picture
+      });
+    })
+  );
+  //deserializes(grabs information) the information from the user session
+  passport.deserializeUser((user, done) => {
+    process.nextTick(() => done(null, user)
+    );
+  });
 };
