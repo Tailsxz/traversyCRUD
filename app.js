@@ -1,7 +1,7 @@
 const express =require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const expressHandlebars = require('express-handlebars');
+const { engine:expressHandlebars } = require('express-handlebars');
 const connectDB = require('./config/db.js');
 
 // Loading the config for our environment variables
@@ -25,6 +25,9 @@ app.engine('.hbs', expressHandlebars({ defaultLayout: 'main' ,extname: '.hbs' })
 //With the set method of the app, we can specify settings for our server. We can set really any key value pair we want, but there are certain names when set, like 'view engine' below, which can be used to configure specific behaviors of our express server.
 app.set('view engine', '.hbs');
 //for custom settings, one that is not on the predefined list of configurable settings, we can access the value by passing in the name as an argument to a app.get() call.
+
+//Connecting to all of our routers
+app.use('/', require('./routes/index'));
 
 //Setting up our port to be either the environment variable PORT or if it doesn't exist use 3000
 const PORT = process.env.PORT || 3000;
