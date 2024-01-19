@@ -30,3 +30,4 @@ Found out there are definitely people connecting to my existing cluster as I for
 Learned how to setup the handlebars engine and define specific configurations for the engine such as the defaultLayout which will be used for the majority of our routes from which we can then render specific hbs files as the body for the individual layouts.
 Learned how to use the express router/ and how to encapsulate our routes as a seperate component and use them within the main app. 
 Learned how to bring in the materialize framework, a framework that is built upon Google's Material Design philosophy and provides a multitude of both CSS and JS components.
+Learned how author origins are applied, the order the browser parses the stylesheet is the order they are in the cascade.
