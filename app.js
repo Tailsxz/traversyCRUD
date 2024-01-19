@@ -18,6 +18,14 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+//Setting up our view engine, which we will be using handlebars as the template engine in this project, brought in by the express-handlebars package.
+
+//Using app.engine() we will specify that any files with the extension hbs will be processed by the Handlebars template engine, passing into the expressHandlebars function an optional options object.
+app.engine('.hbs', expressHandlebars({ defaultLayout: 'main' ,extname: '.hbs' }));
+//With the set method of the app, we can specify settings for our server. We can set really any key value pair we want, but there are certain names when set, like 'view engine' below, which can be used to configure specific behaviors of our express server.
+app.set('view engine', '.hbs');
+//for custom settings, one that is not on the predefined list of configurable settings, we can access the value by passing in the name as an argument to a app.get() call.
+
 //Setting up our port to be either the environment variable PORT or if it doesn't exist use 3000
 const PORT = process.env.PORT || 3000;
 
