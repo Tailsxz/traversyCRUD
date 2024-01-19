@@ -2,12 +2,16 @@ const path = require('path');
 const express =require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-//
+const passport = require('passport');
+const session = require('express-session');
 const { engine:expressHandlebars } = require('express-handlebars');
 const connectDB = require('./config/db.js');
 
 // Loading the config for our environment variables
 dotenv.config({ path: './config/config.env' });
+
+//Setting up the Passport config, passing in the passport module into this file
+require('./config/passport')(passport);
 
 //Calling the connectDB() we exported from db.js to connect to the database.
 connectDB();
@@ -31,6 +35,20 @@ app.engine('.hbs', expressHandlebars({ defaultLayout: 'main' ,extname: '.hbs' })
 //Here we set the view engine setting, to default to .hbs, so that when we call res.render() without specifying an extension, it is automagically assumed to be one ending in .hbs
 app.set('view engine', '.hbs');
 //for custom settings, one that is not on the predefined list of configurable settings, we can access the value by passing in the name as an argument to a app.get() call.
+
+//Setting up the Sessions middleware
+app.use(session({
+  //Secret that is used to sign the session cookie
+  secret: 'zjww83k1kl4bu15059xad32',
+  //Don't resave a session if nothing has been modified
+  resave: false,
+  //Don't create a session until something is stored
+  saveUninitialized: false,
+}));
+
+// Setting up the Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Setting up the static express middleware which will define routes for static files we want to serve automatically. We will be serving from the public directory existing in the current directory. We can use the path core module to form the full path by referencing __dirname(current directory) and joining it with public
 app.use(express.static(path.join(__dirname, 'public')))
