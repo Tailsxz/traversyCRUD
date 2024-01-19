@@ -22,8 +22,8 @@ module.exports = function (passport) {
     })
   );
   //deserializes(grabs information) the information from the user session
-  passport.deserializeUser((user, done) => {
-    process.nextTick(() => done(null, user)
+  passport.deserializeUser((id, done) => {
+    process.nextTick(() => User.findById(id, (err, user) => done(null, user))
     );
   });
 };
