@@ -1,6 +1,11 @@
-p {
-  /* Need to use the !important here to override any styles being applied by the materialize/fontawesome stylesheets, might not even be needed with how origins work with the cascade and specificity*/
-  margin: 10px 0 !important;
+/* p {
+  Need to use the !important here to override any styles being applied by the materialize/fontawesome stylesheets, might not even be needed with how origins work with the cascade and specificity
+  margin: 10px 0 !important; 
+  I don't like how this is using an !important, lets just override the selector that is used by materialize to apply the margin on the card content ps
+} */
+
+.card .card-content p {
+  margin: 10px 0;
 }
 
 h1 {
