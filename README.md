@@ -37,3 +37,4 @@ Learned how to define a schema using mongoose.
 Learned about the next tick queue!
 Learned a lot about OAuth and authentication/authorization in general.
 Learned a bunch about how to protect routes with custom made middleware.
+Got a lot of debugging experience following a tutorial from 3 years ago.
