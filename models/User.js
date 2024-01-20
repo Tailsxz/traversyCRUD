@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
+    //Changed this to not required, not all google users have a lastName, if google doesn't require it, we shouldn't either.
   },
   image: {
     type: String,

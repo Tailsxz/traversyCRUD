@@ -44,6 +44,7 @@ module.exports = function (passport) {
   //   process.nextTick(() => User.findById(id, (err, user) => done(null, user))
   //   );
   // });
+  //The code from above doesn't work anymore, mongoose has changed! Now the findById method only takes in an id, no longer accepting a callback to run when it is found, so instead we are checking if the user exists, and if so call the done function, which is being passed in.
   passport.deserializeUser((id, done) => {
     const user = User.findById(id);
     if (user) {
