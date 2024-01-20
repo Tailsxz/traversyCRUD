@@ -9,8 +9,26 @@ module.exports = function (passport) {
     callbackURL: '/auth/google/callback',
   },
   async (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
-    
+    console.log(profile)
+    const newUser = {
+      googleId: profile.id,
+      displayName: profile.displayName,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      image: profile.photos[0].value,
+    }
+    try {
+      let user = await User.findOne({ googleId: profile.id});
+
+      if (user) {
+        done(null, user);
+      } else {
+        user = await User.create(newUser);
+        done(null, user);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }));
   //we are exporting the functions that are serializing the user data storing it into the session, the nextTick queue, is essentially the promise jobs queue which we are identifying by the fact that it is ran before allowing the event loop to continue and that it is executed to completion. Turns out we were wrong about the nextTick queue! It is very similar to the promiseJobs queue, but the main difference is in the priority. The nextTick queue gets priority over the promise jobs queue!
   passport.serializeUser((user, done) => process.nextTick(() => {
@@ -27,6 +45,11 @@ module.exports = function (passport) {
   //   );
   // });
   passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => done(err, user))
+    const user = User.findById(id);
+    if (user) {
+      done(null, user);
+    } else {
+      throw new Error('User was not found...')
+    }
   });
 };
