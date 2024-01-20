@@ -46,14 +46,23 @@ module.exports = function (passport) {
   //   );
   // });
   //The code from above doesn't work anymore, mongoose has changed! Now the findById method only takes in an id, no longer accepting a callback to run when it is found, so instead we are checking if the user exists, and if so call the done function, which is being passed in.
-  //Oh my that was a pain to debug. So our previous solution of just storing the User.findById(id) call wasn't working because the "id" parameter being passed in was really the user itself which had a property of id..... which now with this refactored solution we are accessing the id property of the user object passed into the deserialize function.
-  passport.deserializeUser(async (user, done) => {
-    //rather than deserializing from the session store, we are doing so from the MongoDB collection users.
-    const currentUser = await User.findById(user.id);
-    if (currentUser) {
-      done(null, currentUser);
+  //Oh my that was a pain to debug. So our previous solution of just storing the User.findById(id) call wasn't working because the "id" parameter being passed in was really the user itself which had a property of id..... which now with this refactored solution we are accessing the id property of the user object passed into the deserialize function. If we wanted to use and directly access the id of the user object being passed in we could destructure. Actually lets comment this one out and do that.
+  // passport.deserializeUser(async (user, done) => {
+  //   //rather than deserializing from the session store, we are doing so from the MongoDB collection users.
+  //   const currentUser = await User.findById(user.id);
+  //   if (currentUser) {
+  //     done(null, currentUser);
+  //   } else {
+  //     throw new Error('User was not found...')
+  //   }
+  // });
+  passport.deserializeUser(async ({id}, done) => {
+    const user = await User.findById(id);
+    if (user) {
+      done(null, user);
     } else {
-      throw new Error('User was not found...')
-    }
+      throw new Error('User could not be found...');
+    };
   });
+  //There ya go! Much cleaner :)
 };
