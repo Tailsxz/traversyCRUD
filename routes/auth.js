@@ -15,4 +15,12 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
   res.redirect('/dashboard');
 })
 
+//@desc Logout route, will be hit when the user clicks logout
+//@route /auth/logout
+router.get('/logout', (req, res) => {
+  //logout() is a passport primitive! Abstraction goes crazy
+  req.logout()
+  res.redirect('/')
+})
+
 module.exports = router
