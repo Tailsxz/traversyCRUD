@@ -9,7 +9,6 @@ module.exports = function (passport) {
     callbackURL: '/auth/google/callback',
   },//the name for the last argument "done", is arbitrary and can be named anything, it is the callback function passport.js passes in for us to call and pass the user back to passport upon successful auth.
   async (accessToken, refreshToken, profile, done) => {
-    console.log(profile)
     //Creating a newUser object to be able to store them into our database if they didn't exist, in the format defined within the User schema.
     const newUser = {
       googleId: profile.id,
