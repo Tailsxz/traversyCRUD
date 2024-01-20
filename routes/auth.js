@@ -17,13 +17,13 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 
 //@desc Logout route, will be hit when the user clicks logout
 //@route /auth/logout
-router.post('/logout', (req, res, next) => {
+router.get('/logout', (req, res, next) => {
   //logout() is a passport primitive! Abstraction goes crazy
   req.logout(err => {
     if (err) return next(err);
     res.redirect('/');
   });
-  // res.redirect('/') <- logout requires we pass a callback now, also changing our get request to a post in order to prevent accidental or malicious logouts.
+  // res.redirect('/') <- logout requires we pass a callback now, also changing our get request to a post in order to prevent accidental or malicious logouts. But this requires us to set up additional client side javascript(a fetch) so we will stick to get.
 });
 
 module.exports = router
