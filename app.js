@@ -1,10 +1,21 @@
+//bringing in path to be able to call the join() method
 const path = require('path');
+//bringing in express to create our server
 const express =require('express');
+//bringing in mongoose to be able to grab the current connection
+const mongoose = require('mongoose');
+//allows us to use enviroment variables
 const dotenv = require('dotenv');
+//Morgan request logger! Very useful!
 const morgan = require('morgan');
 const passport = require('passport');
+//express session allows us to create sessions for each of our users
 const session = require('express-session');
+//We are storing the sessions into our database, which is done by passing session into connect-mongo
+const MongoStore = require('connect-mongo');
+//bringing in the handlebars template engine, aliasing it with expressHandlebars
 const { engine:expressHandlebars } = require('express-handlebars');
+//
 const connectDB = require('./config/db.js');
 
 // Loading the config for our environment variables
@@ -44,8 +55,10 @@ app.use(session({
   resave: false,
   //Don't create a session until something is stored
   saveUninitialized: false,
+  //here we are specifying our session store, which is setup with connect mongo, we specify in the options object the current mongoose connection accessed as a property on the mongoose object
+  // store: new MongoStore({ mongooseConnection: mongoose.connection }) wow! Lets go we just debugged the issue with this video being so outdated, it seems from before accessing mongoose.connection gave the connection string directly, but now upon logging what mongoose.connection gave, it gave a huge object with all the connection details, from which we are now only accessing the connection string. Resetted server and now have working persisting sessions!!!!
+  store: MongoStore.create({ mongoUrl: mongoose.connection._connectionString })
 }));
-
 // Setting up the Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
