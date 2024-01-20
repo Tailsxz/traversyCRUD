@@ -16,3 +16,4 @@ module.exports = {
     };
   }
 }
+// Both of these are to protect our routes, the first will be called upon hitting the /dashboard route, if an unauthenticated user tries to go there without logging in, they will be redirected to the login page, the second does the opposite, if an authenticated user hits our root route, '/', the user will be redirected to the dashboard, as a user with an active session shouldn't ever see the login page.
