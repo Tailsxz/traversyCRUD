@@ -36,3 +36,4 @@ Learned how to set up a project on google cloud console, specifically how to ena
 Learned how to define a schema using mongoose.
 Learned about the next tick queue!
 Learned a lot about OAuth and authentication/authorization in general.
+Learned a bunch about how to protect routes with custom made middleware.
