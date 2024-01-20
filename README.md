@@ -35,3 +35,4 @@ Got experience using materialize to be able to create styled components very fas
 Learned how to set up a project on google cloud console, specifically how to enable the Google+ API(Deprecated, Google Sign In is now the preferred API) for authentication.
 Learned how to define a schema using mongoose.
 Learned about the next tick queue!
+Learned a lot about OAuth and authentication/authorization in general.
