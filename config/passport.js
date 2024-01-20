@@ -32,7 +32,8 @@ module.exports = function (passport) {
   }));
   //we are exporting the functions that are serializing the user data storing it into the session, the nextTick queue, is essentially the promise jobs queue which we are identifying by the fact that it is ran before allowing the event loop to continue and that it is executed to completion. Turns out we were wrong about the nextTick queue! It is very similar to the promiseJobs queue, but the main difference is in the priority. The nextTick queue gets priority over the promise jobs queue!
   passport.serializeUser((user, done) => process.nextTick(() => {
-      return done(null, {//specifying we only want to store the id,username and picture of the user into the session store.
+    //specifying we only want to store the id,username and picture of the user into the session store.
+      return done(null, {
         id: user.id,
         username: user.username,
         picture: user.picture
@@ -45,11 +46,12 @@ module.exports = function (passport) {
   //   );
   // });
   //The code from above doesn't work anymore, mongoose has changed! Now the findById method only takes in an id, no longer accepting a callback to run when it is found, so instead we are checking if the user exists, and if so call the done function, which is being passed in.
-  passport.deserializeUser((id, done) => {
+  //Oh my that was a pain to debug. So our previous solution of just storing the User.findById(id) call wasn't working because the "id" parameter being passed in was really the user itself which had a property of id..... which now with this refactored solution we are accessing the id property of the user object passed into the deserialize function.
+  passport.deserializeUser(async (user, done) => {
     //rather than deserializing from the session store, we are doing so from the MongoDB collection users.
-    const user = User.findById(id);
-    if (user) {
-      done(null, user);
+    const currentUser = await User.findById(user.id);
+    if (currentUser) {
+      done(null, currentUser);
     } else {
       throw new Error('User was not found...')
     }

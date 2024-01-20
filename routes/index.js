@@ -17,6 +17,7 @@ router.get('/', ensureGuest, (req, res) => {
 //@route GET /dashboard
 //Same here, we pass ensureAuth as the callback BEFORE our arrow function callback. We are using this middleware we created to protect the dashboard from being accessed from unauthenticated users.
 router.get('/dashboard', ensureAuth, (req, res) => {
+  // console.log(req.user, 'hi');
   res.render('dashboard', {
     //Here we are passing into handlebars a name which has the value of the current users firstName. The user property comes from passport, anytime the passport.authentication() succeeds, a req.user property is created and assigned to the information of the current user!
     name: req.user.firstName,
