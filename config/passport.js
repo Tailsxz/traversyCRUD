@@ -33,11 +33,12 @@ module.exports = function (passport) {
   //we are exporting the functions that are serializing the user data storing it into the session, the nextTick queue, is essentially the promise jobs queue which we are identifying by the fact that it is ran before allowing the event loop to continue and that it is executed to completion. Turns out we were wrong about the nextTick queue! It is very similar to the promiseJobs queue, but the main difference is in the priority. The nextTick queue gets priority over the promise jobs queue!
   passport.serializeUser((user, done) => process.nextTick(() => {
     //specifying we only want to store the id,username and picture of the user into the session store.
-      return done(null, {
-        id: user.id,
-        username: user.username,
-        picture: user.picture
-      });
+      // return done(null, {
+      //   id: user.id,
+      //   username: user.username,
+      //   picture: user.picture
+      // }); It seems returning this was creating the object being passed into deserialize somehow, i forget where i even got this return from, probably the passportjs docs
+    done(null, user.id);
     })
   );
   //deserializes(grabs information) the information from the user session
@@ -56,15 +57,13 @@ module.exports = function (passport) {
   //     throw new Error('User was not found...')
   //   }
   // });
-  //Since our serializeUser function is serializing a whole user object along with a couple properties, we can destructure to only recieve the id property to then query our database with.
-  passport.deserializeUser(async ({id}, done) => {
+  //Since our serializeUser function is serializing a whole user object along with a couple properties, we can destructure to only recieve the id property to then query our database with. Now only the parameter name is actually referencing the key rather than being passed the { id: id} object.
+  passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     if (user) {
       //this is the function that is storing our user data into the req.user property.
       done(null, user);
-    } else {
-      throw new Error('User could not be found...');
-    };
+    }
   });
   //There ya go! Much cleaner :)
 };
