@@ -37,8 +37,8 @@ module.exports = function (passport) {
       //   id: user.id,
       //   username: user.username,
       //   picture: user.picture
-      // }); It seems returning this was creating the object being passed into deserialize somehow, i forget where i even got this return from, probably the passportjs docs
-    done(null, user.id);
+      // }); No clue what happened, but now it is storing only the id and we can access it by stating the parameter of id without the need for destructuring.
+    return done(null, user.id);
     })
   );
   //deserializes(grabs information) the information from the user session
@@ -62,8 +62,12 @@ module.exports = function (passport) {
     const user = await User.findById(id);
     if (user) {
       //this is the function that is storing our user data into the req.user property.
-      done(null, user);
+      return done(null, user);
     }
   });
   //There ya go! Much cleaner :)
 };
+
+// {"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":{"id":"65ac2a3338fe4f7a6b4f5b2a"}}}
+// {"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"65ac2bf3a8e390f6484bb012"}}
+//Here was the main issue, whatever code i wrote before stored the id as an object, which then i cleared that cookie and on the next login it stored it appropriately. 
