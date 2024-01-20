@@ -55,6 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //Connecting to all of our routers
 app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth.js'));
 
 //Setting up our port to be either the environment variable PORT or if it doesn't exist use 3000
 const PORT = process.env.PORT || 3000;
