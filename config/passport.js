@@ -56,9 +56,11 @@ module.exports = function (passport) {
   //     throw new Error('User was not found...')
   //   }
   // });
+  //Since our serializeUser function is serializing a whole user object along with a couple properties, we can destructure to only recieve the id property to then query our database with.
   passport.deserializeUser(async ({id}, done) => {
     const user = await User.findById(id);
     if (user) {
+      //this is the function that is storing our user data into the req.user property.
       done(null, user);
     } else {
       throw new Error('User could not be found...');
