@@ -21,9 +21,8 @@ const StorySchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    //ref option allows us to replace this specified path in a document with document(s) from other collections, a process called population. Here we ensure that the user property is populated with the associated user from our User schema.
+    //ref option allows us to replace this specified path in a document with document(s) from other collections, a process called population. Here we ensure that the user property is populated with the associated user from our User schema. This essentially means that when populating, mongoose will check the ObjectId stored in this user property, and replace it with the actual document of the user with that id from our users collection.
     ref: 'User',
-    //Changed this to not required, not all google users have a lastName, if google doesn't require it, we shouldn't either.
   },
     createdAt: {
       type: Date,

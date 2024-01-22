@@ -17,7 +17,9 @@ router.get('/add', ensureAuth, (req, res) => {
 //@route POST /stories
 router.get('/', ensureAuth, (req, res) => {
   try {
-    req.body
+    //replaces the user property of the body(which has been parsed using the urlencoded body parser) with the id of the current user. The Story schema we created requires that this id property is an ObjectID and that it matches the current user posting the story.
+    req.body.user = req.user.id;
+    await Story.create
   } catch (err) {
     console.error(err);
     res.render('error/500')
