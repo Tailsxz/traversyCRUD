@@ -1,0 +1,9 @@
+<h1>Stories</h1>
+<div class="row">
+  {{#each stories}}
+
+  {{!-- With handlebars, #each comes with support for an else! No need for an if statement beforehand! I don't know if I like this feature or hate it. The else runs if there exists nothing to iterate upon. --}}
+  {{else}}
+    <p>No stories to display</p>
+  {{/each}}
+</div>

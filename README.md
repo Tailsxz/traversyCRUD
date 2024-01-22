@@ -40,3 +40,4 @@ Learned a bunch about how to protect routes with custom made middleware.
 Got a lot of debugging experience following a tutorial from 3 years ago.
 Learned how to bring in CKEDITOR to replace a textarea within a form, A WYSIWYG editor for rich text.
 Learned how to collapse all folders in a directory in VSCODE!!! Always nice to find and explore features of the editor we are working in :D To do so within the VSCODE explorer, hover over the directory name and click the rightmost icon.
+Learned how to create a custom helper for handlebars and pass it in to be able to use within our views.
