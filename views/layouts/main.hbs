@@ -19,14 +19,16 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.23.0/ckeditor.js" integrity="sha512-7tXDCaWDbkhXMuB8meqHJJySRtqB4QvPS84FMnnh5vlyRiNsrIne8xwME0RQNrg4f+7CZPOAc7tXNtWgdHdCng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.22.0/ckeditor.js" integrity="sha512-7tXDCaWDbkhXMuB8meqHJJySRtqB4QvPS84FMnnh5vlyRiNsrIne8xwME0RQNrg4f+7CZPOAc7tXNtWgdHdCng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{!-- We initialize the Sidenav built into materialize --}}
     {{!-- We also have to initialize the select input field we brought in from materialize --}}
     <script> 
       M.Sidenav.init(document.querySelector('.sidenav'))
       M.FormSelect.init(document.querySelector('#status'))
-      CKEDITOR.replace('body')
+      CKEDITOR.replace('body', {
+        plugins: 'wysiwygarea, toolbar, basicstyles, link'
+      })
     </script>
-    {{!-- we brought in CKEDITOR, a WYSIWYG HTML editor for Rich Text, here we replace the textarea with the name of body with the editor, easy! --}}
+    {{!-- we brought in CKEDITOR, a WYSIWYG HTML editor for Rich Text, here we replace the textarea with the name of body with the editor, easy! Optional options object with a plugins property which there exists a whole multitude we can bring into the editor. --}}
 </body>
 </html>
