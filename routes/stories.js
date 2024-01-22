@@ -15,14 +15,17 @@ router.get('/add', ensureAuth, (req, res) => {
 
 //@desc Proccesses the add form
 //@route POST /stories
-router.get('/', ensureAuth, (req, res) => {
+router.post('/', ensureAuth, async (req, res) => {
   try {
-    //replaces the user property of the body(which has been parsed using the urlencoded body parser) with the id of the current user. The Story schema we created requires that this id property is an ObjectID and that it matches the current user posting the story.
+    //Adding the user property, which is the property that is used to store the ObjectId which is what we are assigning this property to. Which in the story schema we are using to reference the user document in the Users collection. The Story schema we created requires that this id property is an ObjectID and that it matches the current user posting the story.
     req.body.user = req.user.id;
-    await Story.create
+    console.log(req.body);
+    await Story.create(req.body);
+    // When we use ANY mongoose schema that does not have a collection within our database already, a collection will automatically be created, with the default behavior of undercasing our model name as well as pluralizing it. I.e. User gets transformed to users, Story gets transformed to stories. Cool!
+    res.redirect('/dashboard');
   } catch (err) {
     console.error(err);
-    res.render('error/500')
+    res.render('errors/500')
   }
 })
 
