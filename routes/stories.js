@@ -13,6 +13,23 @@ router.get('/add', ensureAuth, (req, res) => {
   res.render('stories/add');
 })
 
+//@desc Show all stories of a user, so we are fetching the stories of the current user and rendering them.
+//@route GET /stories
+
+router.get('/', ensureAuth, async (req, res) => {
+  try {
+    //fetching the stories and calling populate passing in the argument of user, the property we want to populate. This will populate the user property with the actual user document found in the users collection, which now we can access the user.anyProperty within handlebars.
+    const stories = await Story.find({ status: 'public' })
+      .populate('user')
+      .sort({ createdAt: -1 })
+      .lean();
+    res.render('stories/index');
+  } catch (err) {
+    console.error(err);
+    res.render('error/500');
+  }
+})
+
 //@desc Proccesses the add form
 //@route POST /stories
 router.post('/', ensureAuth, async (req, res) => {

@@ -3,7 +3,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     } else {
-      console.log('Unauthenticated user tried to access the dashboard');
+      console.log('Unauthenticated user tried to access the dashboard/stories');
       res.redirect('/');
     };
   },
