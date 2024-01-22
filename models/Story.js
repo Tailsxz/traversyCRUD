@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 //Setting up a schema for the users of our website, which is essentially a template/blueprint for the data being recieved by Google OAuth which we will be storing into our MongoStore
 
-const UserSchema = new mongoose.Schema({
+const StorySchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -21,17 +21,15 @@ const UserSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
+    //ref option allows us to replace this specified path in a document with document(s) from other collections, a process called population. Here we ensure that the user property is populated with the associated user from our User schema.
     ref: 'User',
     //Changed this to not required, not all google users have a lastName, if google doesn't require it, we shouldn't either.
   },
-  image: {
-    type: String,
     createdAt: {
       type: Date,
-      default: Date.createdAt
-    }
-  },
+      default: Date.now
+    },
   // test: String, when a property only requires a type, it can be shorthanded by simply writing out the type after the colon. This shorthands to test: { type: string }!
 })
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('Story', StorySchema);
