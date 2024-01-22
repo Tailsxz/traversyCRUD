@@ -26,9 +26,11 @@
     <script> 
       M.Sidenav.init(document.querySelector('.sidenav'))
       M.FormSelect.init(document.querySelector('#status'))
+      if (document.querySelector('form')) {
       CKEDITOR.replace('body', {
         plugins: 'wysiwygarea, toolbar, basicstyles, link'
-      })
+      }) //ensures we dont produce errors/ run CKEDITOR on pages that dont have the add.hbs body.
+      }
     </script>
     {{!-- we brought in CKEDITOR, a WYSIWYG HTML editor for Rich Text, here we replace the textarea with the name of body with the editor, easy! Optional options object with a plugins property which there exists a whole multitude we can bring into the editor. --}}
 </body>
