@@ -9,7 +9,8 @@
         <div class="card-content center-align">
           <h2>{{title}}</h2>
           {{!-- So we're gonna need a helper that shortens the body if its too long, as well as strip away the paragraph tag from the body of the story. This paragraph tag is coming from the autoformat that is implemented by CKEDITOR!--}}
-          <p>{{body}}</p>
+          {{!-- Here we can call two helpers with the usage of parentheses striptag helper will be called THEN truncate --}}
+          <p>{{stripTags (truncate body 10)}}</p>
           {{!-- chip is basically a class that makes this div into a little badge coming from materialize. --}}
           <div class="chip">
             {{!-- we are accessing the user.image property from the user object, made available by our ref:User in the Story Schema --}}

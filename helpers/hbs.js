@@ -6,5 +6,20 @@ const moment = require('moment');
 module.exports = {
   formatDate: function(date, format) {
     return moment(date).format(format);
-  }
+  },//Fancy word for shortening the "duration or extent of" something. Why use fancy word when small word work
+  truncate: function(str, len) {
+    if (str.length > len && str.length > 0) {
+      let new_str = str + ' ';
+      //please don't use substr, substr is deprecated and DEPRECATED BAD NON STANDARDIZED BAD BAD BAD
+      //Since traversys original helper used the len to provide as the second argument of substr, to convert it using substring we can simple state the ending index as the length, as the ending index will be exclusive, giving us our desired string. For example if our string length passed as an argument is 4 and the word is Hello, passing in 4 will reference the o as the ending index which will NOT be included, producing 'Hell', our desired string length.
+      new_str = str.substring(0, len);
+      new_str = str.substring(0, new_str.lastIndexOf(' ')); // This line is confusing me, lets work through it. So with our string to form the new one we concatenate a space onto it. Lets say it was hello, now its 'hello '. If our passed in length is 7, OHHH So the first substring call is shortening to our length, but if the length we passed in is greater than the string length that means the space is still existing within the string and so we use the last index of the space, which is zero based, so this will produce the string without the space. So my question is why was the space added in the first place. If there isn't a space left, it will produce an instance of the exact string else shorten to a length equal to the lastIndex of the space. 'Hello World' len = 7, 'Hello World ', => 'Hello W' after lastIndex of Space => 'Hello' OHHH its to ensure that we do not clip words omg.
+      new_str = new_str.length > 0 ? new_str : str.substring(0, len);
+      return new_str + '...'
+    }
+    return str;
+  },
+  stripTags: function(input) {//regex replacing anything with the <> with nothing.
+    return input.replace(/<(?:.|\n)*?>/gm, '');
+  },
 }

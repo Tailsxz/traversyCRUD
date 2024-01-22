@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Handlebars helpers, we must define our helpers within the options object of the handlebars factory function we are passing to app.engine
-const { formatDate } = require('./helpers/hbs');
+const { formatDate, truncate, stripTags } = require('./helpers/hbs');
 
 //Setting up our view engine, which we will be using handlebars as the template engine in this project, brought in by the express-handlebars package.
 
@@ -61,6 +61,8 @@ app.engine('.hbs', expressHandlebars({
   extname: '.hbs',
   helpers: {
     formatDate,
+    truncate,
+    stripTags,
   },
 }));
 //With the set method of the app, we can specify settings for our server. We can set really any key value pair we want, but there are certain names when set, like 'view engine' below, which can be used to configure specific behaviors of our express server.
