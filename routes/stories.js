@@ -21,12 +21,13 @@ router.get('/', ensureAuth, async (req, res) => {
     //fetching the stories and calling populate passing in the argument of user, the property we want to populate. This will populate the user property with the actual user document found in the users collection, which now we can access the user.anyProperty within handlebars.
     const stories = await Story.find({ status: 'public' })
       .populate('user')
+      //Holy cow! a single uppercased ref: was causing the issue of mongoose not being able to find the schema! uppercase ref BAD
       .sort({ createdAt: -1 })
       .lean();
-    res.render('stories/index');
+    res.render('stories/index', { stories });
   } catch (err) {
     console.error(err);
-    res.render('error/500');
+    res.render('errors/500');
   }
 })
 
