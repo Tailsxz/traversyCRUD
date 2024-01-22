@@ -33,8 +33,14 @@ connectDB();
 //Initializing the express app server instance
 const app = express();
 
+// Bringing in the urlencoded(for POST form data)/json body parser middleware, built into express now :D
+//option of extended: false, uses the querystring library to parse the urlencoded data rather than the qs library.
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json());
+
 // Initializing cors middleware;
 app.use(cors());
+
 
 //Here we are using the morgan middleware only if the current env variable NODE_ENV is equal to development, indicating that we are running our server in development mode with nodemon. This is so we only use morgan(a request logger middleware) in development mode.
 if (process.env.NODE_ENV === 'development') {
