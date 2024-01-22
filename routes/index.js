@@ -22,14 +22,15 @@ router.get('/dashboard', ensureAuth, async (req, res) => {
   try {
     //To be able to input our stories into the handlebars engine, we can call lean() to ensure they are recieved from the database as plain javascript objects, not MongooseDocuments. Therefore when we grab a story from the stories collection in this manner, they are not recieved as a Mongoose Document therefore will not have the functionalities that come with MongooseDocuments, such as the save() method.
     const stories = await Story.find({ user: req.user.id }).lean();
-  } catch (error) {
-    
-  }
-  res.render('dashboard', {
-    //Here we are passing into handlebars a name which has the value of the current users firstName. The user property comes from passport, anytime the passport.authentication() succeeds, a req.user property is created and assigned to the information of the current user!
-    name: req.user.firstName,
 
-  });
+    res.render('dashboard', {
+      //Here we are passing into handlebars a name which has the value of the current users firstName. The user property comes from passport, anytime the passport.authentication() succeeds, a req.user property is created and assigned to the information of the current user!
+      name: req.user.firstName,
+      stories,
+    });
+  } catch (err) {
+    console.error(err);
+  };
 })
 
 module.exports = router
