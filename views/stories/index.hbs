@@ -13,8 +13,12 @@
           {{!-- chip is basically a class that makes this div into a little badge coming from materialize. --}}
           <div class="chip">
             {{!-- we are accessing the user.image property from the user object, made available by our ref:User in the Story Schema --}}
-            <img src="{{user.image}}" alt="">
+            <img src="{{user.image}}" alt="your profile image">
+            <a href="/stories/user/{{user._id}}">{{user.displayName}}</a>
           </div>
+        </div>
+        <div class="card-action center-align">
+          <a href="/stories/{{_id}}" class="btn grey darken-1">Read More</a>
         </div>
       </div>
     </div>
