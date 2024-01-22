@@ -17,7 +17,7 @@
         <tr>
           {{!-- Since we're in the each loop here, we only have to state the _id, the engine will automatically know that we are referencing the current story --}}
           <td><a href="/stories/{{_id}}"></a>{{title}}</td>
-          <td>{{createdAt}}</td>
+          <td>{{formatDate createdAt}}</td>
           <td><span class="dash-status">{{status}}</span></td>
           <td></td>
         </tr>

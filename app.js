@@ -47,13 +47,22 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// Handlebars helpers, we must define our helpers within the options object of the handlebars factory function we are passing to app.engine
+const { formatDate } = require('./helpers/hbs');
+
 //Setting up our view engine, which we will be using handlebars as the template engine in this project, brought in by the express-handlebars package.
 
 //Using app.engine() we will specify that any files with the extension hbs will be processed by the Handlebars template engine, passing into it the expressHandlebars factory function and an optional configs object. This will produce the engine() function being registered for this file extension.
 //Here we see that when we call this function a function with the description [Function: bound renderView] is produced.
 // console.log(expressHandlebars());
 //It essentially is the callback that will be executed to process any files we are rendering with the .hbs extension
-app.engine('.hbs', expressHandlebars({ defaultLayout: 'main' ,extname: '.hbs' }));
+app.engine('.hbs', expressHandlebars({
+  defaultLayout: 'main', 
+  extname: '.hbs',
+  helpers: {
+    formatDate,
+  },
+}));
 //With the set method of the app, we can specify settings for our server. We can set really any key value pair we want, but there are certain names when set, like 'view engine' below, which can be used to configure specific behaviors of our express server.
 //Here we set the view engine setting, to default to .hbs, so that when we call res.render() without specifying an extension, it is automagically assumed to be one ending in .hbs
 app.set('view engine', '.hbs');
