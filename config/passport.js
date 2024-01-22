@@ -35,9 +35,8 @@ module.exports = function (passport) {
     //specifying we only want to store the id,username and picture of the user into the session store.
       // return done(null, {
       //   id: user.id,
-      //   username: user.username,
-      //   picture: user.picture
-      // }); No clue what happened, but now it is storing only the id and we can access it by stating the parameter of id without the need for destructuring.
+      // });
+      // No clue what happened, but now it is storing only the id and we can access it by stating the parameter of id without the need for destructuring.
     return done(null, user.id);
     })
   );
@@ -70,4 +69,4 @@ module.exports = function (passport) {
 
 // {"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":{"id":"65ac2a3338fe4f7a6b4f5b2a"}}}
 // {"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"passport":{"user":"65ac2bf3a8e390f6484bb012"}}
-//Here was the main issue, whatever code i wrote before stored the id as an object, which then i cleared that cookie and on the next login it stored it appropriately. 
+//Here was the main issue, in the code that returned done(null, {id: user.id, etc, etc}) before stored the id as an object, which then i cleared that cookie and on the next login it stored it appropriately. 
