@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema({
       default: Date.createdAt
     }
   },
+  // test: String, when a property only requires a type, it can be shorthanded by simply writing out the type after the colon. This shorthands to test: { type: string }!
 })
 
 module.exports = mongoose.model('user', UserSchema);
