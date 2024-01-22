@@ -1,3 +1,27 @@
 <h1>Dashboard</h1>
 <h2>Welcome {{name}}</h2>
 <p>Here are your stories</p>
+
+{{#if stories}}
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each stories}}
+        <tr>
+          {{!-- Since we're in the each loop here, we only have to state the _id, the engine will automatically know that we are referencing the current story --}}
+          <td><a href="/stories/{{_id}}"></a></td>
+        </tr>
+      {{/each}}
+      {{!-- As we can see, both the if and the each statements require an ending "tag" with /each and /if --}}
+    </tbody>
+  </table>
+{{else}}
+  <p>You have not created any stories.</p>
+{{/if}}
