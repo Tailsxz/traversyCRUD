@@ -10,9 +10,7 @@ const Story = require('../models/Story');
 
 router.get('/add', ensureAuth, (req, res) => {
   //rendering the handlebars file bringing in the add.hbs file as the body for our main layout.
-  res.render('stories/add', {
-    layout: 'login',
-  });
+  res.render('stories/add');
 })
 
 module.exports = router
