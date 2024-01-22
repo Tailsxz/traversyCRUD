@@ -2,6 +2,8 @@
 const path = require('path');
 //bringing in express to create our server
 const express =require('express');
+//bringing in cors to automagically setup cors headers for our server, CKEDITOR was running into cors errors.
+const cors = require('cors');
 //bringing in mongoose to be able to grab the current connection
 const mongoose = require('mongoose');
 //allows us to use enviroment variables
@@ -13,6 +15,7 @@ const passport = require('passport');
 const session = require('express-session');
 //We are storing the sessions into our database, which is done by passing session into connect-mongo
 const MongoStore = require('connect-mongo');
+
 //bringing in the handlebars template engine, aliasing it with expressHandlebars
 const { engine:expressHandlebars } = require('express-handlebars');
 //
