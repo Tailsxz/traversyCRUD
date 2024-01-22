@@ -1,4 +1,4 @@
-const moment = requires('moment');
+const moment = require('moment');
 // adding a hamburger helper, uh I mean handlebars helper.
 //Utilizing moment.js library to help format our dates
 
