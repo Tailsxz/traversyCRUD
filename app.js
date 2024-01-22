@@ -33,6 +33,9 @@ connectDB();
 //Initializing the express app server instance
 const app = express();
 
+// Initializing cors middleware;
+app.use(cors());
+
 //Here we are using the morgan middleware only if the current env variable NODE_ENV is equal to development, indicating that we are running our server in development mode with nodemon. This is so we only use morgan(a request logger middleware) in development mode.
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
