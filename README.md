@@ -42,3 +42,4 @@ Learned how to bring in CKEDITOR to replace a textarea within a form, A WYSIWYG 
 Learned how to collapse all folders in a directory in VSCODE!!! Always nice to find and explore features of the editor we are working in :D To do so within the VSCODE explorer, hover over the directory name and click the rightmost icon.
 Learned how to create a custom helper function for handlebars and pass it in to be able to use within our views.
 Learned that there is a locals object in express response objects to which is passed into our view engine, allowing any properties within the locals object to be accessed globally within our views.
+Learned how to use methodoverride to be able to make PUT/PATCH/DELETE requests with the forms within the HTML created by our view engine.
