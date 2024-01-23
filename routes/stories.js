@@ -55,6 +55,26 @@ router.get('/add', ensureAuth, (req, res) => {
   res.render('stories/add');
 });
 
+//@desc Route to show all of a certain users stories
+//@route GET /stories/user/:userId
+
+router.get('/user/:userId', ensureAuth, async (req, res) => {
+  try {
+    const stories = await Story.find({
+      user: req.params.userId,
+      status: 'public',
+    })
+      .populate('user')
+      .lean();
+
+    //we are using the same body as the show all of the current users stories page, but now for a specific user that has been clicked on.
+    res.render('stories/index', { stories });
+  } catch (err) {
+    console.error(err);
+    res.render('errors/500');
+  };
+});
+
 //@desc Proccesses the add form
 //@route POST /stories
 router.post('/', ensureAuth, async (req, res) => {
