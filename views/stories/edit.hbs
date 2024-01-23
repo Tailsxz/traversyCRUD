@@ -3,7 +3,7 @@
   <form action="/stories" method="POST" class="col s12">
     <div class="row">
       <div class="input-field">
-        <input type="text" id="title" name="title">
+        <input type="text" id="title" name="title" value="{{story.title}}">
         <label for="title">Title</label>
       </div>
     </div>
@@ -12,9 +12,10 @@
     <div class="row">
       <div class="input-field">
         <select name="status" id="status">
+          {{#select story.status}}
           <option value="public" selected>Public</option>
           <option value="private">Private</option>
-          <option value="unpublished">Unpublished</option>
+          {{/select}}
         </select>
         <label for="status">Status</label>
       </div>
@@ -22,8 +23,8 @@
 
     <div class="row">
       <div class="input-field">
-        <h3>Tell Us Your Story:</h3>
-        <textarea name="body" id="body"></textarea>
+        <h3>Edit Us Your Story:</h3>
+        <textarea name="body" id="body">{{story.body}}</textarea>
       </div>
     </div>
 
