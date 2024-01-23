@@ -1,6 +1,9 @@
 <h2>Edit Story</h2>
 <div class="row">
-  <form action="/stories" method="POST" class="col s12">
+  {{!-- since we are editing, it requires us to issue a put request, but forms by default only support get and post requests. To implement this we must implement a method override --}}
+  <form action="/{{story.user}}" method="POST" class="col s12" enctype="application/x-www-form-urlencoded">
+  {{!-- Of course we can do this in the frontend with a fetch request, but doing it in this manner, we are able to do everything on the backend. GOOD --}}
+    <input type="hidden" name="_method" value="PUT">
     <div class="row">
       <div class="input-field">
         <input type="text" id="title" name="title" value="{{story.title}}">

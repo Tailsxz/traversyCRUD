@@ -5,14 +5,6 @@ const { ensureAuth } = require('../middleware/auth');
 
 const Story = require('../models/Story');
 
-//@desc Show add story page, which will render the add.hbs body we just created.
-//@route GET /stories/add
-
-router.get('/add', ensureAuth, (req, res) => {
-  //rendering the handlebars file bringing in the add.hbs file as the body for our main layout.
-  res.render('stories/add');
-});
-
 //@desc Show all stories of a user, so we are fetching the stories of the current user and rendering them.
 //@route GET /stories
 
@@ -28,6 +20,30 @@ router.get('/', ensureAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.render('errors/500');
+  };
+});
+
+//@desc Show add story page, which will render the add.hbs body we just created.
+//@route GET /stories/add
+
+router.get('/add', ensureAuth, (req, res) => {
+  //rendering the handlebars file bringing in the add.hbs file as the body for our main layout.
+  res.render('stories/add');
+});
+
+//@desc Proccesses the add form
+//@route POST /stories
+router.post('/', ensureAuth, async (req, res) => {
+  try {
+    //Adding the user property, which is the property that is used to store the ObjectId which is what we are assigning this property to. Which in the story schema we are using to reference the user document in the Users collection. The Story schema we created requires that this id property is an ObjectID and that it matches the current user posting the story.
+    req.body.user = req.user.id;
+    console.log(req.body);
+    await Story.create(req.body);
+    // When we use ANY mongoose schema that does not have a collection within our database already, a collection will automatically be created, with the default behavior of undercasing our model name as well as pluralizing it. I.e. User gets transformed to users, Story gets transformed to stories. Cool!
+    res.redirect('/dashboard');
+  } catch (err) {
+    console.error(err);
+    res.render('errors/500')
   };
 });
 
@@ -52,20 +68,30 @@ router.get('/edit/:id', ensureAuth, async (req, res) => {
   }
 })
 
-//@desc Proccesses the add form
-//@route POST /stories
-router.post('/', ensureAuth, async (req, res) => {
-  try {
-    //Adding the user property, which is the property that is used to store the ObjectId which is what we are assigning this property to. Which in the story schema we are using to reference the user document in the Users collection. The Story schema we created requires that this id property is an ObjectID and that it matches the current user posting the story.
-    req.body.user = req.user.id;
-    console.log(req.body);
-    await Story.create(req.body);
-    // When we use ANY mongoose schema that does not have a collection within our database already, a collection will automatically be created, with the default behavior of undercasing our model name as well as pluralizing it. I.e. User gets transformed to users, Story gets transformed to stories. Cool!
-    res.redirect('/dashboard');
-  } catch (err) {
-    console.error(err);
-    res.render('errors/500')
+//@desc Route to Update(PUT) stories
+//@route PUT /stories/:id
+
+router.put('/:id', ensureAuth, async (req, res) => {
+  let story = await Story.findById(req.params.id).lean();
+
+  if (!story) {
+    res.render('errors/404');
   };
+
+  if (story.user != req.user.id) {
+    res.redirect('/stories');
+  } else {//findOneAndUpdate takes the arguments of first the filter, we are using _id to filter to the exact document we wish to update, using the path parameter id's value, then the second argument is the update itself in which we pass the req.body, the third is an options object, altering the behavior of our update operation.
+    story = await Story.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      //setting the new: property to true will enable us to return our document AFTER the update has been applied.
+      new: true,
+      //when runValidators is set to true, when this update is applied the update validators will be ran, which will validate the document we are adding against the model's schema.
+      runValidators: true,
+    })
+
+    res.redirect('/dashboard');
+  }
 });
+
+
 
 module.exports = router;

@@ -10,6 +10,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 //Morgan request logger! Very useful!
 const morgan = require('morgan');
+//Bringing in the method override library
+const methodOverride = require('method-override');
+//Using Passport for authentication in this project
 const passport = require('passport');
 //express session allows us to create sessions for each of our users
 const session = require('express-session');
@@ -37,6 +40,16 @@ const app = express();
 //option of extended: false, uses the querystring library to parse the urlencoded data rather than the qs library.
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
+
+// Bringing in our method override as a middleware, first it will check for the request body, looks for the _method property, assigning the value of that property to our method variable, deleting the property and returning the method which overrides the req.method property value with the returned value.
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    let method = req.body._method;
+    delete req.body._method;
+    return method;
+  };
+}));
 
 // Initializing cors middleware;
 app.use(cors());
