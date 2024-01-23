@@ -1,7 +1,7 @@
 # Project Title
 Node.js App From Scratch -Traversy Media- Follow along
 
-[Live Site]() Demo Link
+[Tutorial, Traversy is the goat](https://www.youtube.com/watch?v=SBvmnHTQIPY)
 
 Building a fullstack CRUD webapp using Node.js/Express/MongoDB. Uses Google OAuth for authentication.
 
