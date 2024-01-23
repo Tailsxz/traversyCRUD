@@ -11,7 +11,7 @@ const Story = require('../models/Story');
 router.get('/add', ensureAuth, (req, res) => {
   //rendering the handlebars file bringing in the add.hbs file as the body for our main layout.
   res.render('stories/add');
-})
+});
 
 //@desc Show all stories of a user, so we are fetching the stories of the current user and rendering them.
 //@route GET /stories
@@ -28,6 +28,27 @@ router.get('/', ensureAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.render('errors/500');
+  };
+});
+
+//@desc Route for showing the edit page upon a user clicking the edit button
+//@route GET /stories/edit/:id, using a path parameter of id which we will access to show the appropriate story of the one that was clicked.
+
+router.get('/edit/:id', ensureAuth, async (req, res) => {
+  const story = await Story.findOne({
+    _id: req.params.id,
+  }).lean();
+
+  if (!story) {//if the story with this id is no found, return a 404
+    return res.render('errors/404')
+  };
+  //If the story.user(objectId of user who created the story) is not equal to the current user, redirect them to the main stories page, because only the user who created the story should have access to this page.
+  if (story.user != req.user.id) {
+    res.redirect('/stories');
+  } else {//else we render our edit page.
+    res.render('stories/edit', {
+      story,
+    })
   }
 })
 
@@ -44,7 +65,7 @@ router.post('/', ensureAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.render('errors/500')
-  }
-})
+  };
+});
 
-module.exports = router
+module.exports = router;
