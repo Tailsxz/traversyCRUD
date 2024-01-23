@@ -34,6 +34,6 @@ module.exports = {
       } else {
         return `<a href="/stories/edit/${storyId}"><i class="fas fa-edit"></i></a>`;
       };
-    } else return '';
+    } else return '';//this last else returns nothing if the creator of the story and current user dont match in objectIds
   }
 }
