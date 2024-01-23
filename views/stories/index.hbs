@@ -4,7 +4,8 @@
     <div class="col s12 m4">
       <div class="card">
         <div class="card-image">
-          {{!-- todo: editIcon, will be a helper --}}
+          {{!-- the user we are first passing in is the story user, which we don't have to access through story.user because we are within the stories #each loop, to be able to access the actual currently logged in user we must go out of the loop with the ../ to then access the user we are passing in. --}}
+          {{editIcon user ../user _id}}
         </div>
         <div class="card-content center-align">
           <h2>{{title}}</h2>

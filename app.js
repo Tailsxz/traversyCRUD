@@ -87,6 +87,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Setting up an express global variable, setting it as middleware
+app.use(function (req, res, next) {
+  res.locals.user = req.user || null;
+  next();
+});
+
 // Setting up the static express middleware which will define routes for static files we want to serve automatically. We will be serving from the public directory existing in the current directory. We can use the path core module to form the full path by referencing __dirname(current directory) and joining it with public
 app.use(express.static(path.join(__dirname, 'public')))
 
