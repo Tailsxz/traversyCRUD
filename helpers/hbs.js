@@ -26,5 +26,14 @@ module.exports = {
     input = input.replace('<p>', '');
     input = input.replace('</p>', '');
     return input;
-  },
+  },//The editIcon function takes in the user who created the story to compare to the current user. If they match, we will have a floating edit icon for that story. When clicked it should link to the page associated with that story, which will have the URI of the story id. The floating parameter takes in a boolean, defaulting to true, that will allow us to serve multiple edit icons, one for the mains stories page where they will float in their respective story container, one for the actual story page we are hyperlinking to!
+  editIcon: function(storyUser, loggedUser, storyId, floating = true) {
+    if (storyUser._id.toString() == loggedUser._id.toString()) {
+      if (floating) {
+        return `<a href="/stories/edit/${storyId}" class="btn-floating halfway-fab blue"<i class="fas fa-edit fa-small"></i></a>`;
+      } else {
+        return `<a href="/stories/edit/${storyId}"><i class="fas fa-edit"></i></a>`;
+      };
+    } else return '';
+  }
 }
