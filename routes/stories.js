@@ -51,21 +51,26 @@ router.post('/', ensureAuth, async (req, res) => {
 //@route GET /stories/edit/:id, using a path parameter of id which we will access to show the appropriate story of the one that was clicked.
 
 router.get('/edit/:id', ensureAuth, async (req, res) => {
-  const story = await Story.findOne({
-    _id: req.params.id,
-  }).lean();
-
-  if (!story) {//if the story with this id is no found, return a 404
-    return res.render('errors/404')
+  try {
+    const story = await Story.findOne({
+      _id: req.params.id,
+    }).lean();
+  
+    if (!story) {//if the story with this id is no found, return a 404
+      return res.render('errors/404')
+    };
+    //If the story.user(objectId of user who created the story) is not equal to the current user, redirect them to the main stories page, because only the user who created the story should have access to this page.
+    if (story.user != req.user.id) {
+      res.redirect('/stories');
+    } else {//else we render our edit page.
+      res.render('stories/edit', {
+        story,
+      })
+    }
+  } catch (err) {
+    console.error(err);
+    res.redirect('errors/500');
   };
-  //If the story.user(objectId of user who created the story) is not equal to the current user, redirect them to the main stories page, because only the user who created the story should have access to this page.
-  if (story.user != req.user.id) {
-    res.redirect('/stories');
-  } else {//else we render our edit page.
-    res.render('stories/edit', {
-      story,
-    })
-  }
 })
 
 //@desc Route to Update(PUT) stories
@@ -93,7 +98,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.render('errors/500');
-  }
+  };
   
 });
 
