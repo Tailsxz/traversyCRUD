@@ -9,9 +9,7 @@ module.exports = {
   },//Fancy word for shortening the "duration or extent of" something. Why use fancy word when small word work
   truncate: function(str, len) {
     if (str.length > len && str.length > 0) {
-      console.log(str);
       let new_str = str + ' ';
-      console.log(new_str);
       //please don't use substr, substr is deprecated and DEPRECATED BAD NON STANDARDIZED BAD BAD BAD
       //Since traversys original helper used the len to provide as the second argument of substr, to convert it using substring we can simple state the ending index as the length, as the ending index will be exclusive, giving us our desired string. For example if our string length passed as an argument is 4 and the word is Hello, passing in 4 will reference the o as the ending index which will NOT be included, producing 'Hell', our desired string length.
       new_str = str.substring(0, len);
@@ -30,7 +28,7 @@ module.exports = {
   editIcon: function(storyUser, loggedUser, storyId, floating = true) {
     if (storyUser._id.toString() == loggedUser._id.toString()) {
       if (floating) {
-        return `<a href="/stories/edit/${storyId}" class="btn-floating halfway-fab blue"<i class="fas fa-edit fa-small"></i></a>`;
+        return `<a href="/stories/edit/${storyId}" class="btn-floating halfway-fab blue"><i class="fas fa-edit fa-small"></i></a>`;
       } else {
         return `<a href="/stories/edit/${storyId}"><i class="fas fa-edit"></i></a>`;
       };

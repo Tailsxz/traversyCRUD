@@ -4,14 +4,14 @@
     <div class="col s12 m4">
       <div class="card">
         <div class="card-image">
-          {{!-- the user we are first passing in is the story user, which we don't have to access through story.user because we are within the stories #each loop, to be able to access the actual currently logged in user we must go out of the loop with the ../ to then access the user we are passing in. --}}
-          {{editIcon user ../user _id}}
+          {{!-- the user we are first passing in is the story user, which we don't have to access through story.user because we are within the stories #each loop, to be able to access the actual currently logged in user we must go out of the loop with the ../ to then access the user we are passing in. need to use triple curly braces to be able to parse html with handlebars --}}
+          {{{editIcon user ../user _id}}}
         </div>
         <div class="card-content center-align">
           <h2>{{title}}</h2>
           {{!-- So we're gonna need a helper that shortens the body if its too long, as well as strip away the paragraph tag from the body of the story. This paragraph tag is coming from the autoformat that is implemented by CKEDITOR!--}}
           {{!-- Here we can call two helpers with the usage of parentheses striptag helper will be called THEN truncate --}}
-          <p>{{truncate (stripTags body) 10}}</p>
+          <p>{{truncate (stripTags body) 100}}</p>
           {{!-- chip is basically a class that makes this div into a little badge coming from materialize. --}}
           <div class="chip">
             {{!-- we are accessing the user.image property from the user object, made available by our ref:User in the Story Schema --}}
