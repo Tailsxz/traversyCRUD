@@ -73,7 +73,6 @@ router.get('/edit/:id', ensureAuth, async (req, res) => {
 
 router.put('/:id', ensureAuth, async (req, res) => {
   let story = await Story.findById(req.params.id).lean();
-
   if (!story) {
     res.render('errors/404');
   };
