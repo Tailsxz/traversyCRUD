@@ -20,7 +20,18 @@
           {{!-- so it seems to add helpers within handlebars we don't need the calling parentheses as with JavaScript, all we need to do is call the function by identifying it, passing its arguments in by space seperation --}}
           <td>{{formatDate createdAt 'MMM Do YYYY, h:mm:ss a'}}</td>
           <td><span class="dash-status">{{status}}</span></td>
-          <td></td>
+          <td>
+            <a href="/stories/edit/{{_id}}" class="btn btn-float">
+            <i class="fas fa-edit fa-small"></i>
+            </a>
+
+            <form action="/stories/{{_id}}" method="POST" id="delete-button">
+              <input type="hidden" name="_method" value="DELETE">
+              <button class="btn red">
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
+          </td>
         </tr>
       {{/each}}
       {{!-- As we can see, both the if and the each statements require an ending "tag" with /each and /if --}}

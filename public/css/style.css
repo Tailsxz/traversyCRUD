@@ -21,3 +21,8 @@ h1 {
 .fa-small {
   scale: .8;
 }
+
+.btn-float {
+  float: left;
+  margin-inline-end: 15px;
+}
