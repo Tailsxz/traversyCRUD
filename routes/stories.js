@@ -72,15 +72,16 @@ router.get('/edit/:id', ensureAuth, async (req, res) => {
 //@route PUT /stories/:id
 
 router.put('/:id', ensureAuth, async (req, res) => {
-  let story = await Story.findById(req.params.id).lean();
-  if (!story) {
-    res.render('errors/404');
-  };
+  try {
+    let story = await Story.findById(req.params.id).lean();
+    if (!story) {
+      res.render('errors/404');
+    };
 
-  if (story.user != req.user.id) {
-    res.redirect('/stories');
-  } else {//findOneAndUpdate takes the arguments of first the filter, we are using _id to filter to the exact document we wish to update, using the path parameter id's value, then the second argument is the update itself in which we pass the req.body, the third is an options object, altering the behavior of our update operation.
-    story = await Story.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    if (story.user != req.user.id) {
+      res.redirect('/stories');
+    } else {//findOneAndUpdate takes the arguments of first the filter, we are using _id to filter to the exact document we wish to update, using the path parameter id's value, then the second argument is the update itself in which we pass the req.body, the third is an options object, altering the behavior of our update operation.
+      story = await Story.findOneAndUpdate({ _id: req.params.id }, req.body, {
       //setting the new: property to true will enable us to return our document AFTER the update has been applied.
       new: true,
       //when runValidators is set to true, when this update is applied the update validators will be ran, which will validate the document we are adding against the model's schema.
@@ -89,14 +90,19 @@ router.put('/:id', ensureAuth, async (req, res) => {
 
     res.redirect('/dashboard');
   }
+  } catch (err) {
+    console.error(err);
+    return res.render('errors/500');
+  }
+  
 });
 
 //@desc Route for deleting stories
 //@route DELETE /stories/:id
 
 router.delete('/:id', ensureAuth, async (req, res) => {
-  try {
-    let deleted = await Story.deleteOne({ _id:req.params.id });
+  try {//removed is deprecated, deleteone good :)
+    let deleted = await Story.deleteOne({ _id:req.params.id });//Returns a promise which will resolve to a DeleteResults object which has a deletedCount property we can access.
     console.log(deleted.deletedCount);
     res.redirect('/dashboard');
   } catch (err) {
