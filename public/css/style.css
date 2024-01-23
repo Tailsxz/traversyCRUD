@@ -26,3 +26,7 @@ h1 {
   float: left;
   margin-inline-end: 15px;
 }
+
+.img-small {
+  width: 55px;
+}
