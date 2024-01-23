@@ -87,8 +87,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Setting up an express global variable, setting it as middleware
+//Setting up an express "global" variable, setting it as middleware
 app.use(function (req, res, next) {
+  //res.locals is an object that is passed automatically to our view engine, this means when we set a property of user equals to the req.user(the current user, set by passport upon authentication) we can access that user information globally through simply stating user in our templates/partials/layouts.
   res.locals.user = req.user || null;
   next();
 });
