@@ -23,6 +23,30 @@ router.get('/', ensureAuth, async (req, res) => {
   };
 });
 
+//@desc Route to an individual story
+//@route GET /stories/:id
+
+router.get('/:id', ensureAuth, async (req, res) => {
+  try {
+    //again, here we are finding the appropriate story the user clicked on which when on the stories page, will be the path parameter :id bound to which ever story was clicked on within the each loop in the index.hbs Populating the user field with the actual user data, and lean so that we can work with it and input it into our view engine as a JavaScript object not a mongoose document.
+    const story = await Story.findById(req.params.id)
+      .populate('user')
+      .lean();
+
+    if(!story) {
+      return res.render('errors/404');
+    };
+
+    res.render('stories/show', {
+      story,
+    });
+  } catch (err) {
+    console.error(err);
+    res.render('errors/404');
+  };
+});
+
+
 //@desc Show add story page, which will render the add.hbs body we just created.
 //@route GET /stories/add
 
