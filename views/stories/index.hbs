@@ -11,7 +11,9 @@
           <h2>{{title}}</h2>
           {{!-- So we're gonna need a helper that shortens the body if its too long, as well as strip away the paragraph tag from the body of the story. This paragraph tag is coming from the autoformat that is implemented by CKEDITOR!--}}
           {{!-- Here we can call two helpers with the usage of parentheses striptag helper will be called THEN truncate --}}
-          <p>{{truncate (stripTags body) 100}}</p>
+          {{!-- <p>{{truncate (stripTags body) 100}}</p> --}}
+          {{!-- refactored! easy! no need for the strip tags if we can just parse the html directly with triple curlys. --}}
+          {{{truncate body 50}}}
           {{!-- chip is basically a class that makes this div into a little badge coming from materialize. --}}
           <div class="chip">
             {{!-- we are accessing the user.image property from the user object, made available by our ref:User in the Story Schema --}}
