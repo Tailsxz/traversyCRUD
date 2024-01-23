@@ -24,7 +24,7 @@ To get a copy of this project, you can fork the repo then clone it as your own.
 [Navigate to the directory and run npm install to install all necessary dependencies](https://docs.npmjs.com/cli/v10/commands/npm-install)
 
 ### Optimizations
-Any planned future optimizations
+Redesign the application, make it look nice and learn more materialize.
 
 ### Knowledge gained from this project
 Learned how to use mongoose to be able to connect to MongoDB and apply schemas.
