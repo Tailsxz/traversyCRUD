@@ -67,7 +67,7 @@ router.get('/user/:userId', ensureAuth, async (req, res) => {
       .populate('user')
       .lean();
 
-    //we are using the same body as the show all of the current users stories page, but now for a specific user that has been clicked on.
+    //we are using the same body as the show all of the public stories page, but now for a specific user that has been clicked on.
     res.render('stories/index', { stories });
   } catch (err) {
     console.error(err);
