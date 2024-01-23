@@ -12,6 +12,8 @@ To get a copy of this project, you can fork the repo then clone it as your own.
 ### Prerequisites
 - A Github Account
 - Your local Git CLI, Git Bash comes with the windows Git installation.
+-npm
+-node.js (version I built this project in was v20.10.0, you can find your version by inputting the command node -v in your CLI)
 
 ### Installing
 
