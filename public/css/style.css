@@ -17,3 +17,7 @@ h1 {
   margin-block-start: 50px;
   text-align: center;
 }
+
+.fa-small {
+  scale: .8;
+}
