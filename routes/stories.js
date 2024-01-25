@@ -81,7 +81,6 @@ router.post('/', ensureAuth, async (req, res) => {
   try {
     //Adding the user property, which is the property that is used to store the ObjectId which is what we are assigning this property to. Which in the story schema we are using to reference the user document in the Users collection. The Story schema we created requires that this id property is an ObjectID and that it matches the current user posting the story.
     req.body.user = req.user.id;
-    console.log(req.body);
     await Story.create(req.body);
     // When we use ANY mongoose schema that does not have a collection within our database already, a collection will automatically be created, with the default behavior of undercasing our model name as well as pluralizing it. I.e. User gets transformed to users, Story gets transformed to stories. Cool!
     res.redirect('/dashboard');
@@ -152,7 +151,6 @@ router.put('/:id', ensureAuth, async (req, res) => {
 router.delete('/:id', ensureAuth, async (req, res) => {
   try {//removed is deprecated, deleteone good :)
     let deleted = await Story.deleteOne({ _id:req.params.id });//Returns a promise which will resolve to a DeleteResults object which has a deletedCount property we can access.
-    console.log(deleted.deletedCount);
     res.redirect('/dashboard');
   } catch (err) {
     console.error(err);

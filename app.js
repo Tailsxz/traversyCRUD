@@ -67,7 +67,6 @@ const { formatDate, truncate, stripTags, editIcon, select } = require('./helpers
 
 //Using app.engine() we will specify that any files with the extension hbs will be processed by the Handlebars template engine, passing into it the expressHandlebars factory function and an optional configs object. This will produce the engine() function being registered for this file extension.
 //Here we see that when we call this function a function with the description [Function: bound renderView] is produced.
-// console.log(expressHandlebars());
 //It essentially is the callback that will be executed to process any files we are rendering with the .hbs extension
 app.engine('.hbs', expressHandlebars({
   defaultLayout: 'main', 
