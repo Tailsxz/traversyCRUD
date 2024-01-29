@@ -10,7 +10,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
 //@desc Google Auth Callback
 //@route GET /auth/google/callback
-//This is essentially the redirect upon successful authentication, the second options object defines a failure redirect which will redirect to the root route upon authentication failure, else run the callback which redirects the user to the dashboard path.
+//This is essentially the redirect upon successful authentication, the second options object defines a failure redirect which will redirect to the root route upon authentication failure, else run the callback which redirects the user to the dashboard path. Upon successful authentication, calling authenticate is what creates the user object on our request!!!!
 router.get('/google/callback', passport.authenticate('google', { failureRedirect:'/'}), (req, res) => {
   res.redirect('/dashboard');
 });
