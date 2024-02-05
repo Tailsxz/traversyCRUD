@@ -18,7 +18,6 @@ const passport = require('passport');
 const session = require('express-session');
 //We are storing the sessions into our database, which is done by passing session into connect-mongo
 const MongoStore = require('connect-mongo');
-
 //bringing in the handlebars template engine, aliasing it with expressHandlebars
 const { engine:expressHandlebars } = require('express-handlebars');
 //
