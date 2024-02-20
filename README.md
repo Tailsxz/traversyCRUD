@@ -1,5 +1,4 @@
-# Project Title
-Node.js App From Scratch -Traversy Media- Follow along
+# Node.js App From Scratch -Traversy Media- Follow along
 
 [Tutorial, Traversy is the goat](https://www.youtube.com/watch?v=SBvmnHTQIPY)
 
